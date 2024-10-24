@@ -240,18 +240,19 @@ public class Creature
     /// <summary>
     /// Décode la courbe des tentacules pour déterminer la forme du mouvement
     /// </summary>
-    /// <param name="p">Emplecement du point sur la courbe</param>
-    /// <returns>Coordonnées de l'empalcement p</returns>
-    public Vector3 DecodeCourbe(float p)
+    /// <param name="t">Emplecement du point sur la courbe</param>
+    /// <returns>Coordonnées de l'empalcement t</returns>
+    public Vector3 DecodeCourbe(float t, float tentacleLength)
     {
         int courbeBits = Utils.BitToInt(genome[8], genome[9]);
+        float locationFactor = t/tentacleLength; 
         switch (courbeBits)
         {
-            case 0: return new Vector3(Mathf.Sin(p * 2), p, Mathf.Cos(p * 2)); // Courbe hélicoïdale
-            case 1: return new Vector3(Mathf.Sin(p), p, 0); // Courbe sinusoïdale simple
-            case 2: return new Vector3(0, p, Mathf.Cos(p)); // Courbe sur l'axe Z
-            case 3: return new Vector3(Mathf.Sin(p), p, Mathf.Sin(p)); // Double sinus
-            default: return new Vector3(0, p, 0); // Ligne droite
+            case 0: return new Vector3(locationFactor*Mathf.Sin(t * 2), t, locationFactor*Mathf.Cos(t * 2)); // Courbe hélicoïdale
+            case 1: return new Vector3(locationFactor*Mathf.Sin(t), t, 0); // Courbe sinusoïdale simple
+            case 2: return new Vector3(0, t, locationFactor*Mathf.Cos(t)); // Courbe sur l'axe Z
+            case 3: return new Vector3(locationFactor*Mathf.Sin(t), t, locationFactor*Mathf.Sin(t)); // Double sinus
+            default: return new Vector3(0, t, 0); // Ligne droite
         }
     }
 

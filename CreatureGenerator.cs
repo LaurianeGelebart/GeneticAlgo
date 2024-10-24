@@ -169,7 +169,7 @@ public class CreatureGenerator : MonoBehaviour
         {
             // Calcule la position d'offset X et Z en fonction de la courbe du génome
              float t = i * curveStep;
-            Vector3 curvePosition = creature.DecodeCourbe(t);
+            Vector3 curvePosition = creature.DecodeCourbe(t, curveStep*tentacleLength);
 
             // Calcule la position d'offset Y pour descendre chaque sphère
             Vector3 offsetPosition = new Vector3(0, -i * downwardStep, 0);
